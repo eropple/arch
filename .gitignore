@@ -1,0 +1,9 @@
+bin
+obj
+_Re*
+*.cachefile
+
+*.suo
+*.user
+*.vs10x
+*.resharper
