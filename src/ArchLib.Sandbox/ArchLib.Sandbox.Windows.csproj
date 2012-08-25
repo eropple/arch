@@ -1,21 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ProjectGuid>{39A1BE72-5542-470F-8842-A33A36B8F65D}</ProjectGuid>
+    <ProjectGuid>{77081922-ED32-42FC-9218-F5C35177628E}</ProjectGuid>
     <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ArchLib</RootNamespace>
-    <AssemblyName>ArchLib</AssemblyName>
+    <RootNamespace>ArchLib.Sandbox</RootNamespace>
+    <AssemblyName>ArchLib.Sandbox</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
     <XnaPlatform>Windows</XnaPlatform>
     <XnaProfile>Reach</XnaProfile>
-    <XnaCrossPlatformGroupID>e4b29dcd-fd43-4def-a2d4-939fac42367f</XnaCrossPlatformGroupID>
-    <XnaOutputType>Library</XnaOutputType>
+    <XnaCrossPlatformGroupID>ecb201ae-cb6c-4df4-92b2-fd685b00d2bc</XnaCrossPlatformGroupID>
+    <XnaOutputType>Game</XnaOutputType>
+    <ApplicationIcon>Game.ico</ApplicationIcon>
+    <Thumbnail>GameThumbnail.png</Thumbnail>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -50,31 +52,29 @@
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Arch.cs" />
-    <Compile Include="ControlFlow\ScreenManager.cs" />
-    <Compile Include="ControlFlow\Screens\Screen.cs" />
-    <Compile Include="Input\GamePadEvent.cs" />
-    <Compile Include="Input\IInputHandler.cs" />
-    <Compile Include="Input\InputSystem.cs" />
-    <Compile Include="Input\MouseButton.cs" />
-    <Compile Include="Input\Thumbstick.cs" />
-    <Compile Include="Input\Trigger.cs" />
-    <Compile Include="Options\StartupOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Runners\XnaGame.cs" />
-    <Compile Include="Utility\Factory.cs" />
-    <Compile Include="Utility\ObjectModel\LookupTable.cs" />
-    <Compile Include="Utility\Time.cs" />
-    <Compile Include="Utility\Tweening\Tweener.cs" />
+    <Compile Include="Program.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Game.ico" />
+    <Content Include="GameThumbnail.png">
+      <XnaPlatformSpecific>true</XnaPlatformSpecific>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ArchLib.SandboxContent\ArchLib.SandboxContent.contentproj">
+      <Name>ArchLib.SandboxContent</Name>
+      <XnaReferenceType>Content</XnaReferenceType>
+    </ProjectReference>
+    <ProjectReference Include="..\ArchLib\ArchLib.Windows.csproj">
+      <Project>{39A1BE72-5542-470F-8842-A33A36B8F65D}</Project>
+      <Name>ArchLib.Windows</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />

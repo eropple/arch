@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchLib.Windows", "src\ArchLib\ArchLib.Windows.csproj", "{39A1BE72-5542-470F-8842-A33A36B8F65D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchLib.Sandbox.Windows", "src\ArchLib.Sandbox\ArchLib.Sandbox.Windows.csproj", "{77081922-ED32-42FC-9218-F5C35177628E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -13,6 +15,10 @@ Global
 		{39A1BE72-5542-470F-8842-A33A36B8F65D}.Debug|x86.Build.0 = Debug|x86
 		{39A1BE72-5542-470F-8842-A33A36B8F65D}.Release|x86.ActiveCfg = Release|x86
 		{39A1BE72-5542-470F-8842-A33A36B8F65D}.Release|x86.Build.0 = Release|x86
+		{77081922-ED32-42FC-9218-F5C35177628E}.Debug|x86.ActiveCfg = Debug|x86
+		{77081922-ED32-42FC-9218-F5C35177628E}.Debug|x86.Build.0 = Debug|x86
+		{77081922-ED32-42FC-9218-F5C35177628E}.Release|x86.ActiveCfg = Release|x86
+		{77081922-ED32-42FC-9218-F5C35177628E}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
