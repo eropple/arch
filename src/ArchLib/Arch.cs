@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ArchLib.ControlFlow;
+using ArchLib.Graphics;
 using ArchLib.Input;
 using ArchLib.Options;
 using ArchLib.Runners;
@@ -28,6 +29,10 @@ namespace ArchLib
         /// on the Arch static class during the methods invoked by OnInitialization.
         /// </summary>
         public static event InitializationDelegate OnInitialization;
+        /// <summary>
+        /// Called after all initialization is done. Analogous to BeginRun in XNA.
+        /// </summary>
+        public static event PreStartDelegate BeforeStart;
 
         /// <summary>
         /// The underlying Microsoft.Xna.Framework.Game being used by Arch.
@@ -45,6 +50,10 @@ namespace ArchLib
         /// The input handler for your game. Defaults to Arch.Screens.
         /// </summary>
         public static IInputHandler InputHandler { get; set; }
+        /// <summary>
+        /// Handles computations for the scaling/resolution independence system.
+        /// </summary>
+        public static Scaling Scaling { get; private set; }
 
 
         /// <summary>
@@ -60,7 +69,7 @@ namespace ArchLib
         {
             Options = options;
 
-            XnaGame g = new XnaGame();
+            XnaGame g = new XnaGame(options);
 
             Initialize(g);
             if (OnInitialization != null) OnInitialization();
@@ -73,17 +82,25 @@ namespace ArchLib
 
         private static void Initialize(XnaGame game)
         {
+            XnaGame = game;
+            Graphics = game.GraphicsDeviceManager;
+            Scaling = new Scaling(Graphics);
             Factory = new Factory();
+
+            Screens = new ScreenManager();
+            InputHandler = Screens;
+
         }
 
-
-
-
-        internal static void BeginScaled(this SpriteBatch batch)
+        internal static void FireBeforeStart()
         {
-            batch.Begin();
+            Scaling.BeforeStart();
+            Screens.BeforeStart();
+            if (BeforeStart != null) BeforeStart();
         }
     }
 
     public delegate void InitializationDelegate();
+
+    public delegate void PreStartDelegate();
 }

@@ -133,7 +133,7 @@ namespace ArchLib.Input
             MouseState mouseState = Mouse.GetState();
 
             Vector2 realMousePosition = new Vector2(mouseState.X, mouseState.Y);
-            Vector2 effectiveMousePosition = realMousePosition; //ResolutionScaler.RealCoordsToVirtual(realMousePosition);
+            Vector2 effectiveMousePosition = Arch.Scaling.RealCoordsToVirtual(realMousePosition);
 
             Boolean control = _lastKeyboardState.IsKeyDown(Keys.LeftControl) ||
                               _lastKeyboardState.IsKeyDown(Keys.RightControl);

@@ -1,6 +1,8 @@
 using System;
 using ArchLib.ControlFlow.Screens;
 using ArchLib.Options;
+using ArchLib.Sandbox.Screens;
+using Microsoft.Xna.Framework;
 
 namespace ArchLib.Sandbox
 {
@@ -12,7 +14,13 @@ namespace ArchLib.Sandbox
         /// </summary>
         static void Main(string[] args)
         {
-            StartupOptions options = new StartupOptions(FirstScreen);
+            var options = new StartupOptions(FirstScreen)
+                              {
+                                  WindowWidth = 1440,
+                                  WindowHeight = 900,
+                                  LetterboxColor = new Color(0.1f, 0.1f, 0.1f),
+                                  ShowMouseCursor = true
+                              };
 
             Arch.Start(options);
         }
@@ -20,7 +28,7 @@ namespace ArchLib.Sandbox
 
         static Screen FirstScreen()
         {
-            return null;
+            return new TestScreen();
         }
     }
 #endif

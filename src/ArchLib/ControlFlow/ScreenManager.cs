@@ -18,12 +18,15 @@ namespace ArchLib.ControlFlow
 
         public ScreenManager()
         {
-            _batch = Arch.Factory.BuildSpriteBatch();
+        }
 
+        internal void BeforeStart()
+        {
+            _batch = Arch.Factory.BuildSpriteBatch();
             this.Push(Arch.Options.InitialScreenDelegate());
         }
 
-        public void Update(Double delta)
+        internal void Update(Double delta)
         {
             _skipDraw = false;
 
@@ -42,7 +45,7 @@ namespace ArchLib.ControlFlow
             }
         }
         
-        public void Draw(Double delta)
+        internal void Draw(Double delta)
         {
             if (_skipDraw) return;
 

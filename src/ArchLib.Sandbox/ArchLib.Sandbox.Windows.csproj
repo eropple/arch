@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Screens\TestScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
@@ -67,10 +68,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ArchLib.SandboxContent\ArchLib.SandboxContent.contentproj">
-      <Name>ArchLib.SandboxContent</Name>
-      <XnaReferenceType>Content</XnaReferenceType>
-    </ProjectReference>
     <ProjectReference Include="..\ArchLib\ArchLib.Windows.csproj">
       <Project>{39A1BE72-5542-470F-8842-A33A36B8F65D}</Project>
       <Name>ArchLib.Windows</Name>

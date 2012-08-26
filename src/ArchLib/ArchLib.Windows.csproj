@@ -62,6 +62,9 @@
     <Compile Include="Arch.cs" />
     <Compile Include="ControlFlow\ScreenManager.cs" />
     <Compile Include="ControlFlow\Screens\Screen.cs" />
+    <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="Graphics\Scaling.cs" />
+    <Compile Include="Graphics\TextureRegion.cs" />
     <Compile Include="Input\GamePadEvent.cs" />
     <Compile Include="Input\IInputHandler.cs" />
     <Compile Include="Input\InputSystem.cs" />
@@ -75,6 +78,9 @@
     <Compile Include="Utility\ObjectModel\LookupTable.cs" />
     <Compile Include="Utility\Time.cs" />
     <Compile Include="Utility\Tweening\Tweener.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Graphics\Fonts\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
