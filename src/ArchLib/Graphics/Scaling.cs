@@ -48,10 +48,10 @@ namespace ArchLib.Graphics
 
         public readonly Viewport Viewport;
 
-        private readonly Int32 XOffset;
-        private readonly Int32 YOffset;
-        private readonly Single XScale;
-        private readonly Single YScale;
+        private readonly Int32 _xOffset;
+        private readonly Int32 _yOffset;
+        private readonly Single _xScale;
+        private readonly Single _yScale;
 
         internal Scaling(GraphicsDeviceManager graphicsDeviceManager)
         {
@@ -62,7 +62,8 @@ namespace ArchLib.Graphics
             RealScreenBounds = new Rectangle(0, 0, realScreenWidth, realScreenHeight);
             RealAspectRatio = (float) realScreenWidth/(float) realScreenHeight;
 
-            if (realScreenWidth <= 1280 && realScreenHeight <= 720)
+            if ((Arch.Options.ForceScaleFactor == 1) || 
+                (Arch.Options.ForceScaleFactor != 2 && (realScreenWidth <= 1280 && realScreenHeight <= 720)))
             {
                 ScaledScreenBounds = new Rectangle(0, 0, 1280, 720);
             }
@@ -77,13 +78,16 @@ namespace ArchLib.Graphics
 
             // should always be 1 or 2; will have to consider others later
             ScaleFactor = ScaledScreenBounds.Width/VirtualScreenBounds.Width;
-            TransformationMatrix = Matrix.CreateScale(ScaleFactor, ScaleFactor, 1);
 
             Viewport = BuildViewport();
-            XScale = (float) VirtualScreenBounds.Width/(float) Viewport.Width;
-            XOffset = -Viewport.X;
-            YScale = (float) VirtualScreenBounds.Height/(float) Viewport.Height;
-            YOffset = -Viewport.Y;
+            _xScale = (float) VirtualScreenBounds.Width/(float) Viewport.Width;
+            _xOffset = -Viewport.X;
+            _yScale = (float) VirtualScreenBounds.Height/(float) Viewport.Height;
+            _yOffset = -Viewport.Y;
+
+            TransformationMatrix = Matrix.CreateScale(
+                (float)Viewport.Width / ScaledScreenBounds.Width,
+                (float)Viewport.Height / ScaledScreenBounds.Height, 1);
         }
 
         private Viewport BuildViewport()
@@ -115,8 +119,8 @@ namespace ArchLib.Graphics
 
         public Vector2 RealCoordsToVirtual(Vector2 realCoords)
         {
-            return new Vector2(XOffset + (realCoords.X * XScale),
-                YOffset + (realCoords.Y * YScale));
+            return new Vector2(_xOffset + (realCoords.X * _xScale),
+                _yOffset + (realCoords.Y * _yScale));
         }
         public Vector2 VirtualCoordsToScaled(Vector2 virtualCoords)
         {

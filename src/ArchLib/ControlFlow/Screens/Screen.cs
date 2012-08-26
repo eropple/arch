@@ -1,4 +1,5 @@
 ﻿using System;
+using ArchLib.Content;
 using ArchLib.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,8 +11,13 @@ namespace ArchLib.ControlFlow.Screens
     {
         private Boolean _contentLoaded;
 
+        protected readonly ContentContext GlobalContent;
+        protected readonly ContentContext LocalContent;
+
         protected Screen()
         {
+            GlobalContent = Arch.GlobalContent;
+            LocalContent = GlobalContent.CreateChildContext();
         }
 
         public abstract Boolean ShouldSoakDraws { get; }

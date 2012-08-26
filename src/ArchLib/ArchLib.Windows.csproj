@@ -60,10 +60,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arch.cs" />
+    <Compile Include="Content\ContentContext.cs" />
+    <Compile Include="Content\ContentNotFoundException.cs" />
     <Compile Include="ControlFlow\ScreenManager.cs" />
     <Compile Include="ControlFlow\Screens\Screen.cs" />
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="Graphics\IDrawable.cs" />
+    <Compile Include="Graphics\IReloadable.cs" />
     <Compile Include="Graphics\Scaling.cs" />
+    <Compile Include="Graphics\Texture.cs" />
     <Compile Include="Graphics\TextureRegion.cs" />
     <Compile Include="Input\GamePadEvent.cs" />
     <Compile Include="Input\IInputHandler.cs" />

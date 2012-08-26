@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ArchLib.Content;
 using ArchLib.ControlFlow;
 using ArchLib.Graphics;
 using ArchLib.Input;
@@ -46,14 +47,14 @@ namespace ArchLib
         /// The control flow manager for Arch.
         /// </summary>
         public static ScreenManager Screens { get; private set; }
-        /// <summary>
-        /// The input handler for your game. Defaults to Arch.Screens.
-        /// </summary>
-        public static IInputHandler InputHandler { get; set; }
+
+        public static InputSystem Input { get; private set; }
         /// <summary>
         /// Handles computations for the scaling/resolution independence system.
         /// </summary>
         public static Scaling Scaling { get; private set; }
+
+        public static ContentContext GlobalContent { get; private set; }
 
 
         /// <summary>
@@ -86,9 +87,10 @@ namespace ArchLib
             Graphics = game.GraphicsDeviceManager;
             Scaling = new Scaling(Graphics);
             Factory = new Factory();
+            Input = new InputSystem();
 
             Screens = new ScreenManager();
-            InputHandler = Screens;
+            GlobalContent = new ContentContext(null);
 
         }
 
@@ -96,7 +98,20 @@ namespace ArchLib
         {
             Scaling.BeforeStart();
             Screens.BeforeStart();
+            Input.InputHandler = Screens;
             if (BeforeStart != null) BeforeStart();
+        }
+
+
+        internal static void Update(Double delta)
+        {
+            Input.Update();
+            Screens.Update(delta);
+        }
+
+        internal static void Draw(Double delta)
+        {
+            Screens.Draw(delta);
         }
     }
 

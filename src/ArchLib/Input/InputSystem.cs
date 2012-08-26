@@ -21,7 +21,12 @@ namespace ArchLib.Input
         private TouchCollection _lastTouchCollection;
 #endif
 
-        public InputSystem()
+        /// <summary>
+        /// The input handler for your game. Defaults to Arch.Screens.
+        /// </summary>
+        public IInputHandler InputHandler { get; set; }
+
+        internal InputSystem()
         {
             _lastGamePadStates = new Dictionary<PlayerIndex, GamePadState>(4);
             _watchedGamePads = new HashSet<PlayerIndex>();
@@ -106,7 +111,7 @@ namespace ArchLib.Input
                 if (!keyboardState.IsKeyDown(k))
                 {
                     // key has been raised
-                    Arch.InputHandler.KeyUp(k);
+                    InputHandler.KeyUp(k);
                 }
             }
 
@@ -121,7 +126,7 @@ namespace ArchLib.Input
                 if (!_lastKeyboardState.IsKeyDown(k))
                 {
                     // key wasn't down last frame, fire keydown
-                    Arch.InputHandler.KeyDown(k, control, shift, alt);
+                    InputHandler.KeyDown(k, control, shift, alt);
                 }
             }
 
@@ -145,14 +150,14 @@ namespace ArchLib.Input
             Int32 detents = mouseState.ScrollWheelValue - _lastMouseState.ScrollWheelValue;
             if (detents != 0)
             {
-                Arch.InputHandler.MouseScrollWheel(Convert.ToInt32(Math.Ceiling((Single)detents / 120.0f)), effectiveMousePosition);
+                InputHandler.MouseScrollWheel(Convert.ToInt32(Math.Ceiling((Single)detents / 120.0f)), effectiveMousePosition);
             }
 
 
             if (effectiveMousePosition.X != _lastEffectiveMousePosition.X ||
                 effectiveMousePosition.Y != _lastEffectiveMousePosition.Y)
             {
-                Arch.InputHandler.MouseMoved(effectiveMousePosition, new Vector2(effectiveMousePosition.X - _lastEffectiveMousePosition.X, 
+                InputHandler.MouseMoved(effectiveMousePosition, new Vector2(effectiveMousePosition.X - _lastEffectiveMousePosition.X, 
                     effectiveMousePosition.Y - _lastEffectiveMousePosition.Y));
             }
 
@@ -160,56 +165,56 @@ namespace ArchLib.Input
             if (mouseState.LeftButton == ButtonState.Released &&
                 _lastMouseState.LeftButton == ButtonState.Pressed)
             {
-                Arch.InputHandler.MouseButtonReleased(MouseButton.Left, effectiveMousePosition);
+                InputHandler.MouseButtonReleased(MouseButton.Left, effectiveMousePosition);
             }
             else if (mouseState.LeftButton == ButtonState.Pressed &&
                 _lastMouseState.LeftButton == ButtonState.Released)
             {
-                Arch.InputHandler.MouseButtonPressed(MouseButton.Left, effectiveMousePosition, control, shift, alt);
+                InputHandler.MouseButtonPressed(MouseButton.Left, effectiveMousePosition, control, shift, alt);
             }
 
             if (mouseState.MiddleButton == ButtonState.Released &&
                 _lastMouseState.MiddleButton == ButtonState.Pressed)
             {
-                Arch.InputHandler.MouseButtonReleased(MouseButton.Middle, effectiveMousePosition);
+                InputHandler.MouseButtonReleased(MouseButton.Middle, effectiveMousePosition);
             }
             else if (mouseState.MiddleButton == ButtonState.Pressed &&
                 _lastMouseState.MiddleButton == ButtonState.Released)
             {
-                Arch.InputHandler.MouseButtonPressed(MouseButton.Middle, effectiveMousePosition, control, shift, alt);
+                InputHandler.MouseButtonPressed(MouseButton.Middle, effectiveMousePosition, control, shift, alt);
             }
 
             if (mouseState.RightButton == ButtonState.Released &&
                 _lastMouseState.RightButton == ButtonState.Pressed)
             {
-                Arch.InputHandler.MouseButtonReleased(MouseButton.Right, effectiveMousePosition);
+                InputHandler.MouseButtonReleased(MouseButton.Right, effectiveMousePosition);
             }
             else if (mouseState.RightButton == ButtonState.Pressed &&
                 _lastMouseState.RightButton == ButtonState.Released)
             {
-                Arch.InputHandler.MouseButtonPressed(MouseButton.Right, effectiveMousePosition, control, shift, alt);
+                InputHandler.MouseButtonPressed(MouseButton.Right, effectiveMousePosition, control, shift, alt);
             }
 
             if (mouseState.XButton1 == ButtonState.Released &&
                 _lastMouseState.XButton1 == ButtonState.Pressed)
             {
-                Arch.InputHandler.MouseButtonReleased(MouseButton.XButton1, effectiveMousePosition);
+                InputHandler.MouseButtonReleased(MouseButton.XButton1, effectiveMousePosition);
             }
             else if (mouseState.XButton1 == ButtonState.Pressed &&
                 _lastMouseState.XButton1  == ButtonState.Released)
             {
-                Arch.InputHandler.MouseButtonPressed(MouseButton.XButton1, effectiveMousePosition, control, shift, alt);
+                InputHandler.MouseButtonPressed(MouseButton.XButton1, effectiveMousePosition, control, shift, alt);
             }
 
             if (mouseState.XButton2 == ButtonState.Released &&
                 _lastMouseState.XButton2 == ButtonState.Pressed)
             {
-                Arch.InputHandler.MouseButtonReleased(MouseButton.XButton2, effectiveMousePosition);
+                InputHandler.MouseButtonReleased(MouseButton.XButton2, effectiveMousePosition);
             }
             else if (mouseState.XButton2 == ButtonState.Pressed &&
                 _lastMouseState.XButton2 == ButtonState.Released)
             {
-                Arch.InputHandler.MouseButtonPressed(MouseButton.XButton2, effectiveMousePosition, control, shift, alt);
+                InputHandler.MouseButtonPressed(MouseButton.XButton2, effectiveMousePosition, control, shift, alt);
             }
 
             _lastMouseState = mouseState;
@@ -226,11 +231,11 @@ namespace ArchLib.Input
             {
                 if (tl.State == TouchLocationState.Pressed)
                 {
-                    Arch.InputHandler.TouchPressed(tl.Id, tl.Position);
+                    InputHandler.TouchPressed(tl.Id, tl.Position);
                 }
                 else if (tl.State == TouchLocationState.Released)
                 {
-                    Arch.InputHandler.TouchReleased(tl.Id, tl.Position);
+                    InputHandler.TouchReleased(tl.Id, tl.Position);
                 }
                 else if (tl.State == TouchLocationState.Moved)
                 {
@@ -240,7 +245,7 @@ namespace ArchLib.Input
                     {
                         delta = tl.Position - lastTouch.Position;
                     }
-                    Arch.InputHandler.TouchMoved(tl.Id, tl.Position, delta);
+                    InputHandler.TouchMoved(tl.Id, tl.Position, delta);
                 }
             }
 
@@ -265,20 +270,20 @@ namespace ArchLib.Input
 
                 if (Math.Abs(leftStick.X) > Single.Epsilon || Math.Abs(leftStick.Y) > Single.Epsilon)
                 {
-                    Arch.InputHandler.GamePadThumbstickMoved(index, Thumbstick.Left, newState.ThumbSticks.Left, leftStick);
+                    InputHandler.GamePadThumbstickMoved(index, Thumbstick.Left, newState.ThumbSticks.Left, leftStick);
                 }
                 if (Math.Abs(rightStick.X) > Single.Epsilon || Math.Abs(rightStick.Y) > Single.Epsilon)
                 {
-                    Arch.InputHandler.GamePadThumbstickMoved(index, Thumbstick.Right, newState.ThumbSticks.Right, rightStick);
+                    InputHandler.GamePadThumbstickMoved(index, Thumbstick.Right, newState.ThumbSticks.Right, rightStick);
                 }
 
                 if (Math.Abs(leftTrigger) > Single.Epsilon)
                 {
-                    Arch.InputHandler.GamePadTriggerMoved(index, Trigger.Left, newState.Triggers.Left, leftTrigger);
+                    InputHandler.GamePadTriggerMoved(index, Trigger.Left, newState.Triggers.Left, leftTrigger);
                 }
                 if (Math.Abs(rightTrigger) > Single.Epsilon)
                 {
-                    Arch.InputHandler.GamePadTriggerMoved(index, Trigger.Right, newState.Triggers.Right, rightTrigger);
+                    InputHandler.GamePadTriggerMoved(index, Trigger.Right, newState.Triggers.Right, rightTrigger);
                 }
 
                 // below are discrete events mapped to the thumbsticks, triggers, DPad, and buttons.
@@ -304,16 +309,16 @@ namespace ArchLib.Input
                 if (leftTriggerDiscrete != oldLeftTriggerDiscrete)
                 {
                     if (leftTriggerDiscrete == GamePadEvent.LeftTrigger)
-                        Arch.InputHandler.GamePadEventDown(index, GamePadEvent.LeftTrigger);
+                        InputHandler.GamePadEventDown(index, GamePadEvent.LeftTrigger);
                     else // oldLeftTriggerDiscrete must == LeftTrigger
-                        Arch.InputHandler.GamePadEventUp(index, GamePadEvent.LeftTrigger);
+                        InputHandler.GamePadEventUp(index, GamePadEvent.LeftTrigger);
                 }
                 if (rightTriggerDiscrete != oldRightTriggerDiscrete)
                 {
                     if (rightTriggerDiscrete == GamePadEvent.RightTrigger)
-                        Arch.InputHandler.GamePadEventDown(index, GamePadEvent.RightTrigger);
+                        InputHandler.GamePadEventDown(index, GamePadEvent.RightTrigger);
                     else // oldRightTriggerDiscrete must == LeftTrigger
-                        Arch.InputHandler.GamePadEventUp(index, GamePadEvent.RightTrigger);
+                        InputHandler.GamePadEventUp(index, GamePadEvent.RightTrigger);
                 }
 
                 if (leftStickDiscrete != oldLeftStickDiscrete)
@@ -324,16 +329,16 @@ namespace ArchLib.Input
                         switch (oldLeftStickDiscrete)
                         {
                             case GamePadEvent.LeftStickUp:
-                                Arch.InputHandler.GamePadEventUp(index, GamePadEvent.LeftStickUp);
+                                InputHandler.GamePadEventUp(index, GamePadEvent.LeftStickUp);
                                 break;
                             case GamePadEvent.LeftStickDown:
-                                Arch.InputHandler.GamePadEventUp(index, GamePadEvent.LeftStickDown);
+                                InputHandler.GamePadEventUp(index, GamePadEvent.LeftStickDown);
                                 break;
                             case GamePadEvent.LeftStickRight:
-                                Arch.InputHandler.GamePadEventUp(index, GamePadEvent.LeftStickRight);
+                                InputHandler.GamePadEventUp(index, GamePadEvent.LeftStickRight);
                                 break;
                             case GamePadEvent.LeftStickLeft:
-                                Arch.InputHandler.GamePadEventUp(index, GamePadEvent.LeftStickLeft);
+                                InputHandler.GamePadEventUp(index, GamePadEvent.LeftStickLeft);
                                 break;
                         }
                     }
@@ -343,16 +348,16 @@ namespace ArchLib.Input
                         switch (leftStickDiscrete)
                         {
                             case GamePadEvent.LeftStickUp:
-                                Arch.InputHandler.GamePadEventDown(index, GamePadEvent.LeftStickUp);
+                                InputHandler.GamePadEventDown(index, GamePadEvent.LeftStickUp);
                                 break;
                             case GamePadEvent.LeftStickDown:
-                                Arch.InputHandler.GamePadEventDown(index, GamePadEvent.LeftStickDown);
+                                InputHandler.GamePadEventDown(index, GamePadEvent.LeftStickDown);
                                 break;
                             case GamePadEvent.LeftStickRight:
-                                Arch.InputHandler.GamePadEventDown(index, GamePadEvent.LeftStickRight);
+                                InputHandler.GamePadEventDown(index, GamePadEvent.LeftStickRight);
                                 break;
                             case GamePadEvent.LeftStickLeft:
-                                Arch.InputHandler.GamePadEventDown(index, GamePadEvent.LeftStickLeft);
+                                InputHandler.GamePadEventDown(index, GamePadEvent.LeftStickLeft);
                                 break;
                         }
                     }
@@ -366,16 +371,16 @@ namespace ArchLib.Input
                         switch (oldRightStickDiscrete)
                         {
                             case GamePadEvent.RightStickUp:
-                                Arch.InputHandler.GamePadEventUp(index, GamePadEvent.RightStickUp);
+                                InputHandler.GamePadEventUp(index, GamePadEvent.RightStickUp);
                                 break;
                             case GamePadEvent.RightStickDown:
-                                Arch.InputHandler.GamePadEventUp(index, GamePadEvent.RightStickDown);
+                                InputHandler.GamePadEventUp(index, GamePadEvent.RightStickDown);
                                 break;
                             case GamePadEvent.RightStickRight:
-                                Arch.InputHandler.GamePadEventUp(index, GamePadEvent.RightStickRight);
+                                InputHandler.GamePadEventUp(index, GamePadEvent.RightStickRight);
                                 break;
                             case GamePadEvent.RightStickLeft:
-                                Arch.InputHandler.GamePadEventUp(index, GamePadEvent.RightStickLeft);
+                                InputHandler.GamePadEventUp(index, GamePadEvent.RightStickLeft);
                                 break;
                         }
                     }
@@ -385,16 +390,16 @@ namespace ArchLib.Input
                         switch (rightStickDiscrete)
                         {
                             case GamePadEvent.RightStickUp:
-                                Arch.InputHandler.GamePadEventDown(index, GamePadEvent.RightStickUp);
+                                InputHandler.GamePadEventDown(index, GamePadEvent.RightStickUp);
                                 break;
                             case GamePadEvent.RightStickDown:
-                                Arch.InputHandler.GamePadEventDown(index, GamePadEvent.RightStickDown);
+                                InputHandler.GamePadEventDown(index, GamePadEvent.RightStickDown);
                                 break;
                             case GamePadEvent.RightStickRight:
-                                Arch.InputHandler.GamePadEventDown(index, GamePadEvent.RightStickRight);
+                                InputHandler.GamePadEventDown(index, GamePadEvent.RightStickRight);
                                 break;
                             case GamePadEvent.RightStickLeft:
-                                Arch.InputHandler.GamePadEventDown(index, GamePadEvent.RightStickLeft);
+                                InputHandler.GamePadEventDown(index, GamePadEvent.RightStickLeft);
                                 break;
                         }
                     }
@@ -403,104 +408,104 @@ namespace ArchLib.Input
                 if (newState.DPad.Up != lastState.DPad.Up)
                 {
                     if (newState.DPad.Up == ButtonState.Pressed)
-                        Arch.InputHandler.GamePadEventDown(index, GamePadEvent.DPadUp);
+                        InputHandler.GamePadEventDown(index, GamePadEvent.DPadUp);
                     else
-                        Arch.InputHandler.GamePadEventUp(index, GamePadEvent.DPadUp);
+                        InputHandler.GamePadEventUp(index, GamePadEvent.DPadUp);
                 }
                 if (newState.DPad.Down != lastState.DPad.Down)
                 {
                     if (newState.DPad.Down == ButtonState.Pressed)
-                        Arch.InputHandler.GamePadEventDown(index, GamePadEvent.DPadDown);
+                        InputHandler.GamePadEventDown(index, GamePadEvent.DPadDown);
                     else
-                        Arch.InputHandler.GamePadEventUp(index, GamePadEvent.DPadDown);
+                        InputHandler.GamePadEventUp(index, GamePadEvent.DPadDown);
                 }
                 if (newState.DPad.Left != lastState.DPad.Left)
                 {
                     if (newState.DPad.Left == ButtonState.Pressed)
-                        Arch.InputHandler.GamePadEventDown(index, GamePadEvent.DPadLeft);
+                        InputHandler.GamePadEventDown(index, GamePadEvent.DPadLeft);
                     else
-                        Arch.InputHandler.GamePadEventUp(index, GamePadEvent.DPadLeft);
+                        InputHandler.GamePadEventUp(index, GamePadEvent.DPadLeft);
                 }
                 if (newState.DPad.Right != lastState.DPad.Right)
                 {
                     if (newState.DPad.Right == ButtonState.Pressed)
-                        Arch.InputHandler.GamePadEventDown(index, GamePadEvent.DPadRight);
+                        InputHandler.GamePadEventDown(index, GamePadEvent.DPadRight);
                     else
-                        Arch.InputHandler.GamePadEventUp(index, GamePadEvent.DPadRight);
+                        InputHandler.GamePadEventUp(index, GamePadEvent.DPadRight);
                 }
 
                 if (newState.Buttons.A != lastState.Buttons.A)
                 {
                     if (newState.Buttons.A == ButtonState.Pressed)
-                        Arch.InputHandler.GamePadEventDown(index, GamePadEvent.A);
+                        InputHandler.GamePadEventDown(index, GamePadEvent.A);
                     else
-                        Arch.InputHandler.GamePadEventUp(index, GamePadEvent.A);
+                        InputHandler.GamePadEventUp(index, GamePadEvent.A);
                 }
                 if (newState.Buttons.B != lastState.Buttons.B)
                 {
                     if (newState.Buttons.B == ButtonState.Pressed)
-                        Arch.InputHandler.GamePadEventDown(index, GamePadEvent.B);
+                        InputHandler.GamePadEventDown(index, GamePadEvent.B);
                     else
-                        Arch.InputHandler.GamePadEventUp(index, GamePadEvent.B);
+                        InputHandler.GamePadEventUp(index, GamePadEvent.B);
                 }
                 if (newState.Buttons.X != lastState.Buttons.X)
                 {
                     if (newState.Buttons.X == ButtonState.Pressed)
-                        Arch.InputHandler.GamePadEventDown(index, GamePadEvent.X);
+                        InputHandler.GamePadEventDown(index, GamePadEvent.X);
                     else
-                        Arch.InputHandler.GamePadEventUp(index, GamePadEvent.X);
+                        InputHandler.GamePadEventUp(index, GamePadEvent.X);
                 }
                 if (newState.Buttons.Y != lastState.Buttons.Y)
                 {
                     if (newState.Buttons.Y == ButtonState.Pressed)
-                        Arch.InputHandler.GamePadEventDown(index, GamePadEvent.Y);
+                        InputHandler.GamePadEventDown(index, GamePadEvent.Y);
                     else
-                        Arch.InputHandler.GamePadEventUp(index, GamePadEvent.Y);
+                        InputHandler.GamePadEventUp(index, GamePadEvent.Y);
                 }
 
                 if (newState.Buttons.Back != lastState.Buttons.Back)
                 {
                     if (newState.Buttons.Back == ButtonState.Pressed)
-                        Arch.InputHandler.GamePadEventDown(index, GamePadEvent.Back);
+                        InputHandler.GamePadEventDown(index, GamePadEvent.Back);
                     else
-                        Arch.InputHandler.GamePadEventUp(index, GamePadEvent.Back);
+                        InputHandler.GamePadEventUp(index, GamePadEvent.Back);
                 }
                 if (newState.Buttons.Start != lastState.Buttons.Start)
                 {
                     if (newState.Buttons.Start == ButtonState.Pressed)
-                        Arch.InputHandler.GamePadEventDown(index, GamePadEvent.Start);
+                        InputHandler.GamePadEventDown(index, GamePadEvent.Start);
                     else
-                        Arch.InputHandler.GamePadEventUp(index, GamePadEvent.Start);
+                        InputHandler.GamePadEventUp(index, GamePadEvent.Start);
                 }
 
                 if (newState.Buttons.LeftShoulder != lastState.Buttons.LeftShoulder)
                 {
                     if (newState.Buttons.LeftShoulder == ButtonState.Pressed)
-                        Arch.InputHandler.GamePadEventDown(index, GamePadEvent.LeftBumper);
+                        InputHandler.GamePadEventDown(index, GamePadEvent.LeftBumper);
                     else
-                        Arch.InputHandler.GamePadEventUp(index, GamePadEvent.LeftBumper);
+                        InputHandler.GamePadEventUp(index, GamePadEvent.LeftBumper);
                 }
                 if (newState.Buttons.RightShoulder != lastState.Buttons.RightShoulder)
                 {
                     if (newState.Buttons.RightShoulder == ButtonState.Pressed)
-                        Arch.InputHandler.GamePadEventDown(index, GamePadEvent.RightBumper);
+                        InputHandler.GamePadEventDown(index, GamePadEvent.RightBumper);
                     else
-                        Arch.InputHandler.GamePadEventUp(index, GamePadEvent.RightBumper);
+                        InputHandler.GamePadEventUp(index, GamePadEvent.RightBumper);
                 }
 
                 if (newState.Buttons.LeftStick != lastState.Buttons.LeftStick)
                 {
                     if (newState.Buttons.LeftStick == ButtonState.Pressed)
-                        Arch.InputHandler.GamePadEventDown(index, GamePadEvent.LeftStickPressed);
+                        InputHandler.GamePadEventDown(index, GamePadEvent.LeftStickPressed);
                     else
-                        Arch.InputHandler.GamePadEventUp(index, GamePadEvent.LeftStickPressed);
+                        InputHandler.GamePadEventUp(index, GamePadEvent.LeftStickPressed);
                 }
                 if (newState.Buttons.RightStick != lastState.Buttons.RightStick)
                 {
                     if (newState.Buttons.RightStick == ButtonState.Pressed)
-                        Arch.InputHandler.GamePadEventDown(index, GamePadEvent.RightStickPressed);
+                        InputHandler.GamePadEventDown(index, GamePadEvent.RightStickPressed);
                     else
-                        Arch.InputHandler.GamePadEventUp(index, GamePadEvent.RightStickPressed);
+                        InputHandler.GamePadEventUp(index, GamePadEvent.RightStickPressed);
                 }
 
                 newStateDict[index] = newState;

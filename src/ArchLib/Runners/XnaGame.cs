@@ -43,9 +43,12 @@ namespace ArchLib.Runners
         {
             base.BeginRun();
             Arch.FireBeforeStart();
-            Console.WriteLine(Arch.Scaling.RealScreenBounds);
-            Console.WriteLine(Arch.Scaling.ScaledScreenBounds);
-            Console.WriteLine(Arch.Scaling.VirtualScreenBounds);
+        }
+
+        protected override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            Arch.Update(gameTime.ElapsedGameTime.TotalMilliseconds);
         }
 
         protected override void Draw(GameTime gameTime)
@@ -62,6 +65,8 @@ namespace ArchLib.Runners
             BackgroundBatch.Begin();
             BackgroundBatch.Draw(WhiteTexture, Arch.Scaling.ScaledScreenBounds, Color.Black);
             BackgroundBatch.End();
+
+            Arch.Draw(gameTime.ElapsedGameTime.TotalMilliseconds);
         }
     }
 }

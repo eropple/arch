@@ -33,6 +33,19 @@ namespace ArchLib.Options
         public Color LetterboxColor = Color.Black;
 
         /// <summary>
+        /// Forces a scale factor for the game's assets. If set to 0, no
+        /// scaling is performed. If set to 1, will always use @1x assets if they
+        /// exist. If set to 2, will always use @2x assets if they exist. This
+        /// overrides the standard selector based on real viewport size.
+        /// </summary>
+        public Int32 ForceScaleFactor = 0;
+
+        /// <summary>
+        /// Specify the file path (relative or absolute) from which to pull assets.
+        /// </summary>
+        public String ContentRoot = "Assets";
+
+        /// <summary>
         /// If set to true, the OS mouse cursor is shown.
         /// </summary>
         public Boolean ShowMouseCursor = false;

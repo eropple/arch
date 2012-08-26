@@ -34,7 +34,7 @@ namespace ArchLib.Graphics
             ScaleFactor = scaleFactor;
             Bounds = bounds;
 
-            ScaleRatio = (float)ScaleFactor/(float)Arch.Scaling.ScaleFactor;
+            ScaleRatio = (float)Arch.Scaling.ScaleFactor / (float)ScaleFactor;
         }
 
         /// <summary>
