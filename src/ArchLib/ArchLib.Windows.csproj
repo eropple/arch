@@ -65,10 +65,18 @@
     <Compile Include="ControlFlow\ScreenManager.cs" />
     <Compile Include="ControlFlow\Screens\Screen.cs" />
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="Graphics\BitmapFont.cs" />
+    <Compile Include="Graphics\Fonts\CharInfo.cs" />
+    <Compile Include="Graphics\Fonts\CharPair.cs" />
+    <Compile Include="Graphics\Fonts\FontInfo.cs" />
+    <Compile Include="Graphics\Fonts\Loaders\FontLoader.cs" />
+    <Compile Include="Graphics\Fonts\Loaders\FontLoadException.cs" />
+    <Compile Include="Graphics\Fonts\Loaders\FontProcessor.cs" />
     <Compile Include="Graphics\IDrawable.cs" />
     <Compile Include="Graphics\IReloadable.cs" />
     <Compile Include="Graphics\Scaling.cs" />
     <Compile Include="Graphics\Texture.cs" />
+    <Compile Include="Graphics\TextureAtlas.cs" />
     <Compile Include="Graphics\TextureRegion.cs" />
     <Compile Include="Input\GamePadEvent.cs" />
     <Compile Include="Input\IInputHandler.cs" />
@@ -84,9 +92,7 @@
     <Compile Include="Utility\Time.cs" />
     <Compile Include="Utility\Tweening\Tweener.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Graphics\Fonts\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

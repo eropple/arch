@@ -16,8 +16,8 @@ namespace ArchLib.Sandbox
         {
             var options = new StartupOptions(FirstScreen)
                               {
-                                  WindowWidth = 1280,
-                                  WindowHeight = 720,
+                                  WindowWidth = 1282,
+                                  WindowHeight = 900,
                                   LetterboxColor = new Color(0.1f, 0.1f, 0.1f),
                                   ShowMouseCursor = true
                               };

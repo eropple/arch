@@ -40,6 +40,7 @@ namespace ArchLib.Options
         /// </summary>
         public Int32 ForceScaleFactor = 0;
 
+        
         /// <summary>
         /// Specify the file path (relative or absolute) from which to pull assets.
         /// </summary>

@@ -35,7 +35,7 @@ namespace ArchLib.Graphics
 
         public static Texture LoadFromKey(String key)
         {
-            String pathBase = Path.Combine(Arch.Options.ContentRoot, key);
+            String pathBase = Path.Combine(Arch.Options.ContentRoot, "Textures", key);
 
             if (Arch.Scaling.ScaleFactor == 2)
             {
@@ -47,13 +47,13 @@ namespace ArchLib.Graphics
                 }
             }
 
-            String normalPath = pathBase + "@1x.png";
+            String normalPath = pathBase + ".png";
             if (File.Exists(normalPath))
             {
                 Texture2D tex = Texture2D.FromStream(Arch.Graphics.GraphicsDevice, File.OpenRead(normalPath));
                 return new Texture(normalPath, tex, 1); // it's a normal texture
             }
-
+            
             if (Arch.Scaling.ScaleFactor != 2) // we'd rather take 1x if it's available
             {
                 String retinaPath = pathBase + "@2x.png";

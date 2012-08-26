@@ -21,8 +21,7 @@ namespace ArchLib.Utility.ObjectModel
             get
             {
                 TValue val = null;
-                if (_backingStore.TryGetValue(key, out val)) return val;
-                return null;
+                return _backingStore.TryGetValue(key, out val) ? val : null;
             }
         }
 
