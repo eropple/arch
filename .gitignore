@@ -8,4 +8,7 @@ _Re*
 *.vs10x
 *.resharper
 
+*.old
+*_old
+
 TestResults
