@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ArchLib.Runners;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -9,15 +10,6 @@ namespace ArchLib.Utility
     {
         internal Factory()
         {
-        }
-
-        public ContentManager BuildContentManager()
-        {
-#if XNA
-            return new ContentManager(XnaRunner.Instance.Services, "Content");
-#else
-            throw new Exception();
-#endif
         }
 
         public SpriteBatch BuildSpriteBatch()
