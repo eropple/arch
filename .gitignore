@@ -7,3 +7,5 @@ _Re*
 *.user
 *.vs10x
 *.resharper
+
+TestResults
