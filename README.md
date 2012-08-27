@@ -21,6 +21,12 @@ Known issues:
 * While texture objects will be scaled up or down based on their scale (@2x
 or regular) to work on regular and HiDPI displays, you must have a @2x and
 regular font or things get weird.
+* The content system is currently hard-coded to the resources I needed. That
+will probably change at some point (I do have Contentious lying around, after
+all, though that'd need some work).
+* The content system's texture atlas generator requires a paid version of
+TexturePackerPro. You can get around this by using the free version and taking
+out the MaxRects parameter in the python script.
 * There's some gross reflection being used to load MP3s for use in the XNA
 Song class. Blame the idiots who made its public API crap. When I do the
 MonoGame version I'll make sure to make it compatible.
