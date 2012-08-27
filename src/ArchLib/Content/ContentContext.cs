@@ -188,7 +188,7 @@ namespace ArchLib.Content
             return s;
         }
         #endregion
-
+        
         #region SoundEffect Methods
         /// <summary>
         /// Retrieves a SoundEffect object by key if it is loaded into this context or any
