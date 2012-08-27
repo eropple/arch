@@ -154,67 +154,72 @@ namespace ArchLib.Input
             }
 
 
-            if (effectiveMousePosition.X != _lastEffectiveMousePosition.X ||
-                effectiveMousePosition.Y != _lastEffectiveMousePosition.Y)
+            if (Arch.Scaling.VirtualScreenBounds.Contains(effectiveMousePosition))
             {
-                InputHandler.MouseMoved(effectiveMousePosition, new Vector2(effectiveMousePosition.X - _lastEffectiveMousePosition.X, 
-                    effectiveMousePosition.Y - _lastEffectiveMousePosition.Y));
-            }
+
+                if (effectiveMousePosition.X != _lastEffectiveMousePosition.X ||
+                    effectiveMousePosition.Y != _lastEffectiveMousePosition.Y)
+                {
+                    InputHandler.MouseMoved(effectiveMousePosition,
+                                            new Vector2(effectiveMousePosition.X - _lastEffectiveMousePosition.X,
+                                                        effectiveMousePosition.Y - _lastEffectiveMousePosition.Y));
+                }
 
 
-            if (mouseState.LeftButton == ButtonState.Released &&
-                _lastMouseState.LeftButton == ButtonState.Pressed)
-            {
-                InputHandler.MouseButtonReleased(MouseButton.Left, effectiveMousePosition);
-            }
-            else if (mouseState.LeftButton == ButtonState.Pressed &&
-                _lastMouseState.LeftButton == ButtonState.Released)
-            {
-                InputHandler.MouseButtonPressed(MouseButton.Left, effectiveMousePosition, control, shift, alt);
-            }
+                if (mouseState.LeftButton == ButtonState.Released &&
+                    _lastMouseState.LeftButton == ButtonState.Pressed)
+                {
+                    InputHandler.MouseButtonReleased(MouseButton.Left, effectiveMousePosition);
+                }
+                else if (mouseState.LeftButton == ButtonState.Pressed &&
+                         _lastMouseState.LeftButton == ButtonState.Released)
+                {
+                    InputHandler.MouseButtonPressed(MouseButton.Left, effectiveMousePosition, control, shift, alt);
+                }
 
-            if (mouseState.MiddleButton == ButtonState.Released &&
-                _lastMouseState.MiddleButton == ButtonState.Pressed)
-            {
-                InputHandler.MouseButtonReleased(MouseButton.Middle, effectiveMousePosition);
-            }
-            else if (mouseState.MiddleButton == ButtonState.Pressed &&
-                _lastMouseState.MiddleButton == ButtonState.Released)
-            {
-                InputHandler.MouseButtonPressed(MouseButton.Middle, effectiveMousePosition, control, shift, alt);
-            }
+                if (mouseState.MiddleButton == ButtonState.Released &&
+                    _lastMouseState.MiddleButton == ButtonState.Pressed)
+                {
+                    InputHandler.MouseButtonReleased(MouseButton.Middle, effectiveMousePosition);
+                }
+                else if (mouseState.MiddleButton == ButtonState.Pressed &&
+                         _lastMouseState.MiddleButton == ButtonState.Released)
+                {
+                    InputHandler.MouseButtonPressed(MouseButton.Middle, effectiveMousePosition, control, shift, alt);
+                }
 
-            if (mouseState.RightButton == ButtonState.Released &&
-                _lastMouseState.RightButton == ButtonState.Pressed)
-            {
-                InputHandler.MouseButtonReleased(MouseButton.Right, effectiveMousePosition);
-            }
-            else if (mouseState.RightButton == ButtonState.Pressed &&
-                _lastMouseState.RightButton == ButtonState.Released)
-            {
-                InputHandler.MouseButtonPressed(MouseButton.Right, effectiveMousePosition, control, shift, alt);
-            }
+                if (mouseState.RightButton == ButtonState.Released &&
+                    _lastMouseState.RightButton == ButtonState.Pressed)
+                {
+                    InputHandler.MouseButtonReleased(MouseButton.Right, effectiveMousePosition);
+                }
+                else if (mouseState.RightButton == ButtonState.Pressed &&
+                         _lastMouseState.RightButton == ButtonState.Released)
+                {
+                    InputHandler.MouseButtonPressed(MouseButton.Right, effectiveMousePosition, control, shift, alt);
+                }
 
-            if (mouseState.XButton1 == ButtonState.Released &&
-                _lastMouseState.XButton1 == ButtonState.Pressed)
-            {
-                InputHandler.MouseButtonReleased(MouseButton.XButton1, effectiveMousePosition);
-            }
-            else if (mouseState.XButton1 == ButtonState.Pressed &&
-                _lastMouseState.XButton1  == ButtonState.Released)
-            {
-                InputHandler.MouseButtonPressed(MouseButton.XButton1, effectiveMousePosition, control, shift, alt);
-            }
+                if (mouseState.XButton1 == ButtonState.Released &&
+                    _lastMouseState.XButton1 == ButtonState.Pressed)
+                {
+                    InputHandler.MouseButtonReleased(MouseButton.XButton1, effectiveMousePosition);
+                }
+                else if (mouseState.XButton1 == ButtonState.Pressed &&
+                         _lastMouseState.XButton1 == ButtonState.Released)
+                {
+                    InputHandler.MouseButtonPressed(MouseButton.XButton1, effectiveMousePosition, control, shift, alt);
+                }
 
-            if (mouseState.XButton2 == ButtonState.Released &&
-                _lastMouseState.XButton2 == ButtonState.Pressed)
-            {
-                InputHandler.MouseButtonReleased(MouseButton.XButton2, effectiveMousePosition);
-            }
-            else if (mouseState.XButton2 == ButtonState.Pressed &&
-                _lastMouseState.XButton2 == ButtonState.Released)
-            {
-                InputHandler.MouseButtonPressed(MouseButton.XButton2, effectiveMousePosition, control, shift, alt);
+                if (mouseState.XButton2 == ButtonState.Released &&
+                    _lastMouseState.XButton2 == ButtonState.Pressed)
+                {
+                    InputHandler.MouseButtonReleased(MouseButton.XButton2, effectiveMousePosition);
+                }
+                else if (mouseState.XButton2 == ButtonState.Pressed &&
+                         _lastMouseState.XButton2 == ButtonState.Released)
+                {
+                    InputHandler.MouseButtonPressed(MouseButton.XButton2, effectiveMousePosition, control, shift, alt);
+                }
             }
 
             _lastMouseState = mouseState;
