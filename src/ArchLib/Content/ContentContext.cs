@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using ArchLib.Content.XnaLoaders;
 using ArchLib.Graphics;
 using Microsoft.Xna.Framework.Audio;
@@ -15,7 +16,8 @@ namespace ArchLib.Content
     /// </summary>
     public class ContentContext : IDisposable
     {
-        private static readonly List<ContentContext> ReloadList = new List<ContentContext>(20); 
+        private static readonly List<ContentContext> ContextList = new List<ContentContext>(20); 
+        public static readonly ReadOnlyCollection<ContentContext> Contexts = new ReadOnlyCollection<ContentContext>(ContextList); 
 
         public readonly ContentContext Parent;
 
@@ -29,13 +31,13 @@ namespace ArchLib.Content
         {
             Parent = parent;
 
-            if (parent == null) ReloadList.Add(this);
+            if (parent == null) ContextList.Add(this);
         }
 
         public ContentContext CreateChildContext()
         {
             var child = new ContentContext(this);
-            ReloadList.Add(child);
+            ContextList.Add(child);
 
             return child;
         }
