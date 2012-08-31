@@ -7,34 +7,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchLib.Sandbox.Windows", "
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Debug|Mixed Platforms = Debug|Mixed Platforms
-		Debug|x86 = Debug|x86
-		Release|Any CPU = Release|Any CPU
-		Release|Mixed Platforms = Release|Mixed Platforms
-		Release|x86 = Release|x86
+		Debug|Windows = Debug|Windows
+		Release|Windows = Release|Windows
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E5CCDCC6-BDF4-4A6E-902F-DB59F1BCD35D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E5CCDCC6-BDF4-4A6E-902F-DB59F1BCD35D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E5CCDCC6-BDF4-4A6E-902F-DB59F1BCD35D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{E5CCDCC6-BDF4-4A6E-902F-DB59F1BCD35D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{E5CCDCC6-BDF4-4A6E-902F-DB59F1BCD35D}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E5CCDCC6-BDF4-4A6E-902F-DB59F1BCD35D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E5CCDCC6-BDF4-4A6E-902F-DB59F1BCD35D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E5CCDCC6-BDF4-4A6E-902F-DB59F1BCD35D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{E5CCDCC6-BDF4-4A6E-902F-DB59F1BCD35D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{E5CCDCC6-BDF4-4A6E-902F-DB59F1BCD35D}.Release|x86.ActiveCfg = Release|Any CPU
-		{4AEF965B-8179-4601-B357-1FD9FA94096A}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{4AEF965B-8179-4601-B357-1FD9FA94096A}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{4AEF965B-8179-4601-B357-1FD9FA94096A}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{4AEF965B-8179-4601-B357-1FD9FA94096A}.Debug|x86.ActiveCfg = Debug|x86
-		{4AEF965B-8179-4601-B357-1FD9FA94096A}.Debug|x86.Build.0 = Debug|x86
-		{4AEF965B-8179-4601-B357-1FD9FA94096A}.Release|Any CPU.ActiveCfg = Release|x86
-		{4AEF965B-8179-4601-B357-1FD9FA94096A}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{4AEF965B-8179-4601-B357-1FD9FA94096A}.Release|Mixed Platforms.Build.0 = Release|x86
-		{4AEF965B-8179-4601-B357-1FD9FA94096A}.Release|x86.ActiveCfg = Release|x86
-		{4AEF965B-8179-4601-B357-1FD9FA94096A}.Release|x86.Build.0 = Release|x86
+		{E5CCDCC6-BDF4-4A6E-902F-DB59F1BCD35D}.Debug|Windows.ActiveCfg = Debug|Windows
+		{E5CCDCC6-BDF4-4A6E-902F-DB59F1BCD35D}.Debug|Windows.Build.0 = Debug|Windows
+		{E5CCDCC6-BDF4-4A6E-902F-DB59F1BCD35D}.Release|Windows.ActiveCfg = Release|Windows
+		{E5CCDCC6-BDF4-4A6E-902F-DB59F1BCD35D}.Release|Windows.Build.0 = Release|Windows
+		{4AEF965B-8179-4601-B357-1FD9FA94096A}.Debug|Windows.ActiveCfg = Debug|Windows
+		{4AEF965B-8179-4601-B357-1FD9FA94096A}.Debug|Windows.Build.0 = Debug|Windows
+		{4AEF965B-8179-4601-B357-1FD9FA94096A}.Release|Windows.ActiveCfg = Release|Windows
+		{4AEF965B-8179-4601-B357-1FD9FA94096A}.Release|Windows.Build.0 = Release|Windows
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
