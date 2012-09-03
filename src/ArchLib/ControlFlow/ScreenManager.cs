@@ -16,6 +16,10 @@ namespace ArchLib.ControlFlow
         private Boolean _skipDraw;
         private SpriteBatch _batch;
 
+        public event PreUpdateDelegate PreUpdate;
+        public event PostUpdateDelegate PostUpdate;
+        public event PostDrawDelegate PostDraw;
+
         public ScreenManager()
         {
         }
@@ -30,6 +34,8 @@ namespace ArchLib.ControlFlow
         {
             _skipDraw = false;
 
+            if (PreUpdate != null) PreUpdate(delta);
+
             Int32 count = _screens.Count;
             Int32 last = count - 1;
 
@@ -43,6 +49,8 @@ namespace ArchLib.ControlFlow
                 s.Update(delta, i == last);
                 if (s.ShouldSoakUpdates) break;
             }
+
+            if (PostUpdate != null) PostUpdate(delta);
         }
         
         internal void Draw(Double delta)
@@ -77,6 +85,13 @@ namespace ArchLib.ControlFlow
 
                 _batch.BeginScaled();
                 s.Draw(delta, _batch, i == last);
+                _batch.End();
+            }
+
+            if (PostDraw != null)
+            {
+                _batch.BeginScaled();
+                PostDraw(delta, _batch);
                 _batch.End();
             }
 
@@ -350,4 +365,9 @@ namespace ArchLib.ControlFlow
             return false;
         }
     }
+
+    public delegate void PreUpdateDelegate(Double delta);
+    public delegate void PostUpdateDelegate(Double delta);
+
+    public delegate void PostDrawDelegate(Double delta, SpriteBatch batch);
 }
