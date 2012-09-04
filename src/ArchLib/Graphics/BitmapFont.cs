@@ -22,6 +22,7 @@ namespace ArchLib.Graphics
         /// </summary>
         protected readonly Single ScaleRatio;
 
+        public readonly Int32 StringHeight;
 
         public BitmapFont(Texture2D backingTexture, Int32 scaleFactor, FontInfo fontInfo)
         {
@@ -30,14 +31,15 @@ namespace ArchLib.Graphics
             ScaleFactor = scaleFactor;
 
             ScaleRatio = (float)Arch.Scaling.ScaleFactor / (float)ScaleFactor;
+
+            StringHeight = _fontInfo.LineHeight/ScaleFactor;
         }
 
-
+        [Obsolete]
         public int MeasureStringHeight()
         {
-            return _fontInfo.LineHeight;
+            return StringHeight;
         }
-
 
         public int MeasureStringWidth(string text)
         {
@@ -64,7 +66,7 @@ namespace ArchLib.Graphics
                 x += chi.XAdvance;
                 x += kerning;
             }
-            return x;
+            return x / ScaleFactor;
         }
 
 
