@@ -18,12 +18,16 @@ print "ArchLib Content Build"
 print "====================="
 print
 
-SCRIPTS_DIR = os.path.join(os.path.dirname(__file__), "scripts")
+SCRIPT_ROOT = os.path.join(os.path.dirname(__file__), "scripts")
 
 if len(sys.argv) < 3:
-    print "Usage: %s CONTENT_ROOT ASSET_ROOT" % os.path.basename(sys.argv[0])
+    print "Usage: %s CONTENT_ROOT ASSET_ROOT [SCRIPT_ROOT]" % os.path.basename(sys.argv[0])
     print "       CONTENT_ROOT is the parent directory of source and prebuilt."
     print "       ASSET_ROOT is where you want the compiled content to go."
+    print "       SCRIPT_ROOT is where you can store your own Python scripts"
+    print "           for processing your data; the default will NOT be used"
+    print "           if this option is chosen so you'll need to copy any"
+    print "           default scripts into your own SCRIPT_ROOT."
     sys.exit(1)
 
 CONTENT_ROOT = os.path.realpath(sys.argv[1])
@@ -32,7 +36,7 @@ if not os.path.exists(CONTENT_ROOT) or not os.path.isdir(CONTENT_ROOT):
     print
     print "ERROR: Content root '%s' does not exist or is not a directory." \
             % CONTENT_ROOT
-
+    sys.exit(2)
 ASSET_ROOT = os.path.realpath(sys.argv[2])
 if os.path.exists(ASSET_ROOT) and not os.path.isdir(ASSET_ROOT):
     print
@@ -42,8 +46,18 @@ if os.path.exists(ASSET_ROOT) and not os.path.isdir(ASSET_ROOT):
     print
     sys.exit(2)
 
+if len(sys.argv) == 4:
+    SCRIPT_ROOT = os.path.realpath(sys.argv[3])
+    if not os.path.exists(SCRIPT_ROOT) or not os.path.isdir(SCRIPT_ROOT):
+        print
+        print
+        print "ERROR: Script root '%s' does not exist or is not a directory." \
+                % SCRIPT_ROOT
+        sys.exit(2)
+
 print "Content root: " + CONTENT_ROOT
 print "Asset root:   " + ASSET_ROOT
+print "Script root:  " + SCRIPT_ROOT
 
 start_time = time.time()
 
@@ -69,7 +83,7 @@ print
 
 failures = False
 
-os.chdir(SCRIPTS_DIR)
+os.chdir(SCRIPT_ROOT)
 for file in os.listdir("."):
     if file.endswith(".py"):
         filename = os.path.split(file)[1]
