@@ -62,6 +62,9 @@
     <Compile Include="Content\XnaLoaders\SongLoader.cs" />
     <Compile Include="Content\XnaLoaders\SoundEffectLoader.cs" />
     <Compile Include="ControlFlow\ScreenManager.cs" />
+    <Compile Include="ControlFlow\Screens\ActorModel\Actors\Actor.cs" />
+    <Compile Include="ControlFlow\Screens\ActorModel\Stage.cs" />
+    <Compile Include="ControlFlow\Screens\ActorModel\StageScreen.cs" />
     <Compile Include="ControlFlow\Screens\Screen.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Graphics\BitmapFont.cs" />
@@ -88,6 +91,7 @@
     <Compile Include="Runners\XnaGame.cs" />
     <Compile Include="Utility\Factory.cs" />
     <Compile Include="Utility\ObjectModel\LookupTable.cs" />
+    <Compile Include="Utility\RectangleF.cs" />
     <Compile Include="Utility\Time.cs" />
     <Compile Include="Utility\Tweening\Tweener.cs" />
   </ItemGroup>
