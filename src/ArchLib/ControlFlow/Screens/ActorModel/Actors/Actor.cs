@@ -9,15 +9,14 @@ namespace ArchLib.ControlFlow.Screens.ActorModel.Actors
 {
     public abstract class Actor
     {
+        private Stage _stage;
+        private RectangleF _bounds;
+
         private readonly List<Actor> _actors;
+
         public readonly ReadOnlyCollection<Actor> Children;
         public readonly String Name;
 
-        public Actor Parent { get; private set; }
-
-        private Stage _stage;
-
-        private RectangleF _bounds;
         public Vector2 Position
         {
             get { return new Vector2(_bounds.X, _bounds.Y); }
@@ -41,6 +40,8 @@ namespace ArchLib.ControlFlow.Screens.ActorModel.Actors
             get { return _bounds; }
             set { _bounds = value; }
         }
+
+        public Actor Parent { get; private set; }
 
         protected Actor(String name = null)
         {
