@@ -39,6 +39,9 @@ namespace ArchLib.ControlFlow.Screens.ActorModel
             }
 
             a.Stage = this;
+            _topLevelActors.Add(a);
+
+            if (a.Name != null) Register(a);
         }
 
         public void Register(Actor a)
@@ -60,6 +63,9 @@ namespace ArchLib.ControlFlow.Screens.ActorModel
             }
 
             a.Stage = null;
+            _topLevelActors.Remove(a);
+            
+            if (a.Name != null) Deregister(a);
         }
 
         public void Deregister(Actor a)

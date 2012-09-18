@@ -70,6 +70,29 @@ namespace ArchLib.ControlFlow.Screens.ActorModel.Actors
         }
         public abstract void Draw(Double delta, SpriteBatch batch, Vector2 offset);
 
+        public void AddChild(Actor child)
+        {
+            if (child.Parent != null)
+                throw new InvalidOperationException("Child must not have a parent to be added to an actor.");
+
+            child.Parent = this;
+            child.Stage = this.Stage;
+
+            _actors.Add(child);
+            if (child.Name != null) Stage.Register(child);
+        }
+
+        public void RemoveChild(Actor child)
+        {
+            if (child.Parent != this)
+                throw new InvalidOperationException("Child must be parented to this actor to be removed.");
+
+            child.Parent = null;
+            child.Stage = null;
+
+            _actors.Remove(child);
+            if (child.Name != null) Stage.Deregister(child);
+        }
         
         /// <summary>
         /// Recursively (through the children of this actor, if any) sets the
