@@ -11,8 +11,11 @@ namespace ArchLib.Graphics
     public interface IDrawable
     {
         void Draw(SpriteBatch batch, Vector2 position);
+        void Draw(SpriteBatch batch, Vector2 position, Double time);
 
         void Draw(SpriteBatch batch, Vector2 position, Color color,
+                  Single rotation, Vector2 origin, SpriteEffects effects, Single layerDepth);
+        void Draw(SpriteBatch batch, Vector2 position, Double time, Color color,
                   Single rotation, Vector2 origin, SpriteEffects effects, Single layerDepth);
     }
 }

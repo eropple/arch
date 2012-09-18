@@ -44,10 +44,21 @@ namespace ArchLib.Graphics
         /// <param name="position">The position, in virtual coordinates, to draw this TextureRegion.</param>
         public void Draw(SpriteBatch batch, Vector2 position)
         {
-            Draw(batch, position, Color.White, 0.0f, Vector2.Zero, SpriteEffects.None, 0.0f);
+            Draw(batch, position, 0.0, Color.White, 0.0f, Vector2.Zero, SpriteEffects.None, 0.0f);
+        }
+
+        public void Draw(SpriteBatch batch, Vector2 position, double time)
+        {
+            Draw(batch, position, time, Color.White, 0.0f, Vector2.Zero, SpriteEffects.None, 0.0f);
         }
 
         public void Draw(SpriteBatch batch, Vector2 position, Color color, 
+            Single rotation, Vector2 origin, SpriteEffects effects, Single layerDepth)
+        {
+            Draw(batch, position, 0.0, color, rotation, origin, effects, layerDepth);
+        }
+
+        public void Draw(SpriteBatch batch, Vector2 position, Double time, Color color, 
             Single rotation, Vector2 origin, SpriteEffects effects, Single layerDepth)
         {
             Vector2 scaledPosition = Arch.Scaling.VirtualCoordsToScaled(position);
@@ -60,8 +71,8 @@ namespace ArchLib.Graphics
             {
                 // scaled and virtual aren't the same, so we have to multiply by ScaleRatio
                 Rectangle r = new Rectangle((Int32)Math.Floor(scaledPosition.X),
-                    (Int32)Math.Floor(scaledPosition.Y), 
-                    (Int32)(Bounds.Width * ScaleRatio), 
+                    (Int32)Math.Floor(scaledPosition.Y),
+                    (Int32)(Bounds.Width * ScaleRatio),
                     (Int32)(Bounds.Height * ScaleRatio));
 
                 batch.Draw(BackingTexture, r, Bounds, color, rotation, origin, effects, layerDepth);
