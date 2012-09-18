@@ -17,6 +17,15 @@ namespace ArchLib.ControlFlow.Screens.ActorModel.Actors
         public readonly ReadOnlyCollection<Actor> Children;
         public readonly String Name;
 
+        /// <summary>
+        /// Set to false to hide this and all its children.
+        /// </summary>
+        public Boolean Visible = true;
+        /// <summary>
+        /// Set to false to disable updating on this and all its children.
+        /// </summary>
+        public Boolean Awake = true;
+
         public Vector2 Position
         {
             get { return new Vector2(_bounds.X, _bounds.Y); }
@@ -45,12 +54,15 @@ namespace ArchLib.ControlFlow.Screens.ActorModel.Actors
 
         protected Actor(String name = null)
         {
+            Name = name;
             _actors = new List<Actor>();
             Children = new ReadOnlyCollection<Actor>(_actors);
         }
 
         public void DoUpdate(Double delta)
         {
+            if (!Awake) return;
+
             Update(delta);
             foreach (Actor a in _actors)
             {
@@ -62,6 +74,8 @@ namespace ArchLib.ControlFlow.Screens.ActorModel.Actors
         public void DoDraw(Double delta, SpriteBatch batch, Vector2 offset)
         {
             // TODO: if this turns into perf problems, try individual batches + matrices
+            if (!Visible) return;
+
             Draw(delta, batch, offset);
             Vector2 o = new Vector2(offset.X + _bounds.X,
                 offset.Y + _bounds.Y);
