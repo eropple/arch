@@ -10,6 +10,8 @@ namespace ArchLib.Graphics
     /// </summary>
     public interface IDrawable
     {
+        Rectangle Bounds { get; }
+
         void Draw(SpriteBatch batch, Vector2 position);
         void Draw(SpriteBatch batch, Vector2 position, Double time);
 

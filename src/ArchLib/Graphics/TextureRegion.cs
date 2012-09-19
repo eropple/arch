@@ -37,6 +37,8 @@ namespace ArchLib.Graphics
             ScaleRatio = (float)Arch.Scaling.ScaleFactor / (float)ScaleFactor;
         }
 
+        Rectangle IDrawable.Bounds { get { return this.Bounds; } }
+
         /// <summary>
         /// Draws the given texture region at the requested position.
         /// </summary>
