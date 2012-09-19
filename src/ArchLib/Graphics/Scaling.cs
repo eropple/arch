@@ -30,7 +30,7 @@ namespace ArchLib.Graphics
         public readonly Single ScaledAspectRatio;
         /// <summary>
         /// The ratio of virtual "pixels" to scaled pixels. Used in combination with
-        /// the ScaleFactor attribute on drawable items to properly plot the drawn items
+        /// the ScaleFactor property on drawable items to properly plot the drawn items
         /// on the virtual screen grid.
         /// </summary>
         public readonly Int32 ScaleFactor;

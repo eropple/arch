@@ -14,16 +14,16 @@ namespace ArchLib.Graphics
         /// <summary>
         /// The bounds of this TextureRegion within its BackingTexture.
         /// </summary>
-        public readonly Rectangle Bounds;
+        private readonly Rectangle _bounds;
         /// <summary>
-        /// The scale factor for this drawable object. If it matches Arch.Scaling.ScaleFactor,
+        /// The scale factor for this drawable object. If it matches Arch.Scaling._scaleFactor,
         /// then it will be drawn at 1:1 pixel:texel; otherwise, it will be scaled up or down
         /// as appropriate.
         /// </summary>
-        public readonly Int32 ScaleFactor;
+        private readonly Int32 _scaleFactor;
 
         /// <summary>
-        /// The ratio of ScaleFactor / Arch.Scaling.ScaleFactor. Will be used for determining
+        /// The ratio of _scaleFactor / Arch.Scaling._scaleFactor. Will be used for determining
         /// destination rectangles.
         /// </summary>
         protected readonly Single ScaleRatio;
@@ -31,13 +31,14 @@ namespace ArchLib.Graphics
         public TextureRegion(Texture2D backingTexture, Int32 scaleFactor, Rectangle bounds)
         {
             BackingTexture = backingTexture;
-            ScaleFactor = scaleFactor;
-            Bounds = bounds;
+            _scaleFactor = scaleFactor;
+            _bounds = bounds;
 
-            ScaleRatio = (float)Arch.Scaling.ScaleFactor / (float)ScaleFactor;
+            ScaleRatio = (float)Arch.Scaling.ScaleFactor / (float)_scaleFactor;
         }
 
-        Rectangle IDrawable.Bounds { get { return this.Bounds; } }
+        public Rectangle Bounds { get { return _bounds; } }
+        public Int32 ScaleFactor { get { return _scaleFactor; } }
 
         /// <summary>
         /// Draws the given texture region at the requested position.
@@ -64,20 +65,20 @@ namespace ArchLib.Graphics
             Single rotation, Vector2 origin, SpriteEffects effects, Single layerDepth)
         {
             Vector2 scaledPosition = Arch.Scaling.VirtualCoordsToScaled(position);
-            if (ScaleFactor == Arch.Scaling.ScaleFactor)
+            if (_scaleFactor == Arch.Scaling.ScaleFactor)
             {
                 // scaled and virtual are the same
-                batch.Draw(BackingTexture, scaledPosition, Bounds, color, rotation, origin, 1.0f, effects, layerDepth);
+                batch.Draw(BackingTexture, scaledPosition, _bounds, color, rotation, origin, 1.0f, effects, layerDepth);
             }
             else
             {
                 // scaled and virtual aren't the same, so we have to multiply by ScaleRatio
                 Rectangle r = new Rectangle((Int32)Math.Floor(scaledPosition.X),
                     (Int32)Math.Floor(scaledPosition.Y),
-                    (Int32)(Bounds.Width * ScaleRatio),
-                    (Int32)(Bounds.Height * ScaleRatio));
+                    (Int32)(_bounds.Width * ScaleRatio),
+                    (Int32)(_bounds.Height * ScaleRatio));
 
-                batch.Draw(BackingTexture, r, Bounds, color, rotation, origin, effects, layerDepth);
+                batch.Draw(BackingTexture, r, _bounds, color, rotation, origin, effects, layerDepth);
             }
         }
     }

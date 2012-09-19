@@ -11,6 +11,7 @@ namespace ArchLib.Graphics
     public interface IDrawable
     {
         Rectangle Bounds { get; }
+        Int32 ScaleFactor { get; }
 
         void Draw(SpriteBatch batch, Vector2 position);
         void Draw(SpriteBatch batch, Vector2 position, Double time);
