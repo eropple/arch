@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ArchLib.Content.Factories;
 using ArchLib.ControlFlow.Screens;
 using Microsoft.Xna.Framework;
 
@@ -56,6 +57,12 @@ namespace ArchLib.Options
         /// </summary>
         public Boolean AllowDebugOverlay = false;
 
+        /// <summary>
+        /// The content context factory to use to populate GlobalContext and each screen's
+        /// LocalContext. Leave null for standard ContentContexts.
+        /// </summary>
+        public ContentContextFactoryDelegate ContentContextFactoryDelegate = null;
+
         public StartupOptions(InitialScreenDelegate initialScreenDelegate)
         {
             InitialScreenDelegate = initialScreenDelegate;
@@ -64,4 +71,6 @@ namespace ArchLib.Options
 
 
     public delegate Screen InitialScreenDelegate();
+
+    public delegate IContentContextFactory ContentContextFactoryDelegate();
 }

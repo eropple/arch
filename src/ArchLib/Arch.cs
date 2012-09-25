@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ArchLib.Content;
+using ArchLib.Content.Factories;
 using ArchLib.ControlFlow;
 using ArchLib.Graphics;
 using ArchLib.Input;
@@ -56,6 +57,8 @@ namespace ArchLib
 
         public static ContentContext GlobalContent { get; private set; }
 
+        public static IContentContextFactory ContentContextFactory { get; private set; }
+
 
         /// <summary>
         /// Helper class to make creating some objects simpler.
@@ -89,8 +92,12 @@ namespace ArchLib
             Factory = new Factory();
             Input = new InputSystem();
 
+            // I lovehate this expression.
+            ContentContextFactory =
+                (Options.ContentContextFactoryDelegate ?? DefaultContentContextFactory.BuildContextFactory)();
+
             Screens = new ScreenManager();
-            GlobalContent = new ContentContext(null);
+            GlobalContent = ContentContextFactory.BuildContext(null);
 
         }
 

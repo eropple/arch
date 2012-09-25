@@ -17,7 +17,7 @@ namespace ArchLib.ControlFlow.Screens
         protected Screen()
         {
             GlobalContent = Arch.GlobalContent;
-            LocalContent = GlobalContent.CreateChildContext();
+            LocalContent = Arch.ContentContextFactory.BuildContext(GlobalContent);
         }
 
         public abstract Boolean ShouldSoakDraws { get; }

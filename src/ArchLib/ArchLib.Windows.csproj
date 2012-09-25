@@ -61,6 +61,8 @@
     <Compile Include="Collections\ReadOnlySet.cs" />
     <Compile Include="Content\ContentContext.cs" />
     <Compile Include="Content\ContentNotFoundException.cs" />
+    <Compile Include="Content\Factories\DefaultContentContextFactory.cs" />
+    <Compile Include="Content\Factories\IContentContextFactory.cs" />
     <Compile Include="Content\XnaLoaders\SongLoader.cs" />
     <Compile Include="Content\XnaLoaders\SoundEffectLoader.cs" />
     <Compile Include="ControlFlow\ScreenManager.cs" />
@@ -97,6 +99,7 @@
     <Compile Include="Utility\Time.cs" />
     <Compile Include="Utility\Tweening\Tweener.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
