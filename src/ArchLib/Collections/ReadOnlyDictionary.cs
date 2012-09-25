@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -88,6 +89,11 @@ namespace ArchLib.Collections
         public ICollection<TValue> Values
         {
             get { return _backingDictionary.Values; }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

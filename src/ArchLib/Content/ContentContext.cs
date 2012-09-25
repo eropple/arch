@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
 using ArchLib.Content.XnaLoaders;
 using ArchLib.Graphics;
 using Microsoft.Xna.Framework.Audio;
@@ -235,6 +236,44 @@ namespace ArchLib.Content
             foreach (var f in _fonts.Values) f.Dispose();
             foreach (var s in _songs.Values) s.Dispose();
             foreach (var s in _sounds.Values) s.Dispose();
+        }
+
+        private static readonly String AnimPattern = @"^anim:(.*)$";
+        private static readonly String TexturePattern = @"^texture:(.*)$";
+        private static readonly String AtlasPattern = @"^atlas:(.*):(.*)$";
+
+        private static readonly Regex AnimRegex = new Regex(AnimPattern);
+        private static readonly Regex TextureRegex = new Regex(TexturePattern);
+        private static readonly Regex AtlasRegex = new Regex(AtlasPattern);
+
+        /// <summary>
+        /// Resolves a special string to a Drawable, loading any dependent resources
+        /// as necessary.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public IDrawable ResolveDrawable(String path)
+        {
+            Match tM = TextureRegex.Match(path);
+            if (tM.Success)
+            {
+                return this.GetTexture(tM.Groups[1].Value);
+            }
+
+            Match atM = AtlasRegex.Match(path);
+            if (atM.Success)
+            {
+                TextureAtlas atlas = this.GetTextureAtlas(atM.Groups[1].Value);
+                return atlas[atM.Groups[2].Value];
+            }
+
+            Match anM = AnimRegex.Match(path);
+            if (anM.Success)
+            {
+                throw new NotImplementedException("Animations aren't implemented yet.");
+            }
+
+            throw new ArgumentException(path);
         }
     }
 }
